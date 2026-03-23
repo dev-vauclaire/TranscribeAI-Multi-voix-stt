@@ -1,0 +1,18 @@
+services:
+  transcribe-ai-multi-voix:
+    image: transcribe-ai-multi-voix:latest
+    ports:
+      - "5001:5001"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+      - ${MODELS_DIR}:/models
+    environment:
+      - MODEL_DIR=${MODELS_DIR}
+      - MODEL_NAME=${MODEL_NAME}
+      - HF_TOKEN=${HF_TOKEN}
